@@ -1,0 +1,237 @@
+<template>
+<div>
+  <div class="printable-table" v-if="activeItem.name">
+    <h1>黄石市四医院基本医疗保险</h1>
+    <h2>特殊用药、特殊治疗和特殊检查知情同意书</h2>
+
+    <div class="table-head">
+      <table>
+        <tr>
+          <td>姓名</td>
+          <td class="underline">{{ activeItem.name }}</td>
+          <td>科室</td>
+          <td class="underline">儿科</td>
+          <td>床号</td>
+          <td class="underline">{{ activeItem.bedNum }}</td>
+          <td>住院号</td>
+          <td class="underline">{{ activeItem.patientId }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div>
+      <table border="1" class="table-main">
+        <tr>
+          <td colspan="5" class="table-reason">
+            <div>申请原因：</div>
+            <div class="table-reason-content">{{ activeItem.reasons }}</div>
+            <div class="table-reason-sign">医生签名：卢良军</div>
+          </td>
+        </tr>
+        <tr>
+          <td>类别</td>
+          <td>名称</td>
+          <td>单价（元）</td>
+          <td>患者及家属签字</td>
+          <td>时间</td>
+        </tr>
+        <tr v-if="activeItem.drugB.length > 6" v-for="(drug, index) in activeItem.drugB" :key="index">
+          <td :rowspan="activeItem.drugB.length" v-if="index === 0">（乙类）
+            <br>自费10%</td>
+          <td>{{drug.name}}</td>
+          <td>{{drug.price}}</td>
+          <td></td>
+          <td>{{drug.time}}</td>
+        </tr>
+        <tr class="druglist" v-if="activeItem.drugB.length <= 6" v-for="i in 6" :key="i">
+          <td class="druglist-type" rowspan="6" v-if="i === 1">（乙类）
+            <br>自费10%</td>
+          <td v-if="i <= activeItem.drugB.length">{{activeItem.drugB[i-1].name}}</td>
+          <td v-if="i <= activeItem.drugB.length">{{activeItem.drugB[i-1].price}}</td>
+          <td></td>
+          <td v-if="i <= activeItem.drugB.length">{{activeItem.drugB[i-1].time}}</td>
+          <td v-if="i > activeItem.drugB.length" class="drug"></td>
+          <td v-if="i > activeItem.drugB.length"></td>
+          <td v-if="i > activeItem.drugB.length"></td>
+        </tr>
+        <tr v-if="activeItem.drugC.length > 2" v-for="(drug, index) in activeItem.drugC" :key="index">
+          <td :rowspan="activeItem.drugC.length" v-if="index === 0">（丙类）
+            <br>完全自费</td>
+          <td>{{drug.name}}</td>
+          <td>{{drug.price}}</td>
+          <td></td>
+          <td>{{drug.time}}</td>
+        </tr>
+        <tr class="druglist" v-if="activeItem.drugC.length <= 2" v-for="k in 2" :key="Math.random()">
+          <td class="druglist-type" rowspan="2" v-if="k === 1">（丙类）
+            <br>完全自费</td>
+          <td v-if="k <= activeItem.drugC.length">{{activeItem.drugC[k-1].name}}</td>
+          <td v-if="k <= activeItem.drugC.length">{{activeItem.drugC[k-1].price}}</td>
+          <td></td>
+          <td v-if="k <= activeItem.drugC.length">{{activeItem.drugC[k-1].time}}</td>
+          <td v-if="k > activeItem.drugC.length" class="drug"></td>
+          <td v-if="k > activeItem.drugC.length"></td>
+          <td v-if="k > activeItem.drugC.length"></td>
+        </tr>
+        <tr class="druglist">
+          <td class="druglist-type">超限价部分</td>
+          <td class="drug"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+    <div class="fixed-btn">
+      <button @click="printToPdf">打印</button>
+      <button @click="deleteItem">删除</button>
+    </div>
+  </div>
+  <div class="notice" v-else>
+    <span>点击列表项目可查看详情</span>
+    <span>点击添加按钮可添加案例</span>
+  </div>
+</div>
+</template>
+
+<script>
+import { mapState, mapActions } from 'vuex'
+
+export default {
+  methods: {
+    printToPdf (event) {
+      const ipc = require('electron').ipcRenderer
+      ipc.send('print')
+    },
+    ...mapActions([
+      'deleteItem'
+    ])
+  },
+
+  computed: {
+    ...mapState({
+      activeItem: state => state.case.activeItem
+    })
+  }
+}
+</script>
+
+<style scoped>
+h1, h2 {
+  margin: 0.1em;
+}
+
+table {
+  text-align: center;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.printable-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-head {
+  margin: 2em 0;
+}
+
+.table-head td:nth-child(odd) {
+  padding-left: 1em;
+}
+
+.table-head td:first-child {
+  padding: 0;
+}
+
+.underline {
+  border-bottom: 1px solid;
+  min-width: 4em;
+}
+
+.table-main {
+  width: 36em;
+}
+
+.table-main td {
+  padding: 0.5em;
+}
+
+.table-main tr:first-child>td {
+  padding: 1em;
+}
+
+.table-reason {
+  text-align: left;
+}
+
+.table-reason-content {
+  height: 12em;
+  margin: 0.5em 0;
+  text-indent: 2em;
+  line-height: 2;
+  text-align: justify;
+}
+
+.table-reason-sign {
+  text-align: right;
+  margin: 0.2em 1em ;
+}
+
+.druglist>td {
+  font-size: 14px;
+}
+
+.druglist>.druglist-type {
+  font-size: 16px;
+}
+
+.drug {
+  height: 20px;
+}
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 600px;
+}
+
+.notice span {
+  color: #666;
+}
+
+.fixed-btn {
+  width: 560px;
+  position: fixed;
+  bottom: 0;
+  bottom: 20px;
+  text-align: center;
+}
+
+.fixed-btn>button {
+  display: inline-block;
+  width: 80px;
+  height: 30px;
+  opacity: .2;
+  margin-right: 20px;
+}
+
+.fixed-btn>button:last-child {
+  margin-right: 0;
+}
+
+.fixed-btn>button:hover {
+  opacity: 1;
+}
+
+@media print {
+  .fixed-btn {
+    display: none;
+  }
+}
+</style>
+
