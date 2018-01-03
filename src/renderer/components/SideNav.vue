@@ -5,9 +5,7 @@
       <div class="item-list" v-if="items">
         <ul class="list-group">
             <li v-for="item in items" :key="item.patientId" :class="{ active: activeItem === item }" @click="updateActiveItem(item)">
-              <router-link :to="{name: 'print-page'}">
-                <p>{{item.name}}</p>
-              </router-link>
+              <p>{{item.name}}</p>
             </li>
         </ul>
       </div>
@@ -76,19 +74,15 @@
     cursor: pointer;
   }
 
-  a {
-    text-decoration: none;
-    color: rgb(204, 204, 204);
-  }
-
   .active {
     background-color: rgb(63, 63, 71);
     transition: all .5s;
   }
 
-  a>p {
+  p {
     margin: 0;
     padding: 5px 20px;
+    color: rgb(204, 204, 204);
   }
 
   .add-btn {

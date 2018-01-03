@@ -46,16 +46,19 @@ const actions = {
       let name = data[3]
       let type = data[5]
       let time = data[6].split(' ')[0]
+      let isSelfDrug = data[39]
       if (type === '药物') {
-        for (let i in drugList) {
-          if (name === drugList[i].name) {
-            isRepeat = true
+        if (isSelfDrug === '0') {
+          for (let i in drugList) {
+            if (name === drugList[i].name) {
+              isRepeat = true
+            }
           }
-        }
-        if (!isRepeat) {
-          drug.name = name
-          drug.time = time
-          drugList.push(drug)
+          if (!isRepeat) {
+            drug.name = name
+            drug.time = time
+            drugList.push(drug)
+          }
         }
       }
       isRepeat = false

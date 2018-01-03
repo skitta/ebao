@@ -7,8 +7,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'print-page',
-      component: require('@/components/PrintPage').default
+      name: 'index-page',
+      component: require('@/components/IndexPage').default
     },
     {
       path: '*',
@@ -18,6 +18,11 @@ export default new Router({
       path: '/form',
       name: 'form-page',
       component: require('@/components/FormPage').default
+    },
+    {
+      path: '/print',
+      name: 'print-page',
+      component: require('@/components/PrintPage').default
     }
   ]
 })

@@ -1,5 +1,9 @@
 <template>
 <div>
+  <div class="fixed-btn">
+    <button class="btn-left" @click="backToIndex">返回</button>
+    <button class="btn-right" @click="printToPdf">打印</button>
+  </div>
   <div class="printable-table" v-if="activeItem.name">
     <h1>黄石市四医院基本医疗保险</h1>
     <h2>特殊用药、特殊治疗和特殊检查知情同意书</h2>
@@ -62,7 +66,7 @@
           <td></td>
           <td>{{drug.time}}</td>
         </tr>
-        <tr class="druglist" v-if="activeItem.drugC.length <= 2" v-for="k in 2" :key="Math.random()">
+        <tr class="druglist" v-if="activeItem.drugC.length <= 2" v-for="k in 2">
           <td class="druglist-type" rowspan="2" v-if="k === 1">（丙类）
             <br>完全自费</td>
           <td v-if="k <= activeItem.drugC.length">{{activeItem.drugC[k-1].name}}</td>
@@ -82,20 +86,12 @@
         </tr>
       </table>
     </div>
-    <div class="fixed-btn">
-      <button @click="printToPdf">打印</button>
-      <button @click="deleteItem">删除</button>
-    </div>
-  </div>
-  <div class="notice" v-else>
-    <span>点击列表项目可查看详情</span>
-    <span>点击添加按钮可添加案例</span>
   </div>
 </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   methods: {
@@ -103,9 +99,9 @@ export default {
       const ipc = require('electron').ipcRenderer
       ipc.send('print')
     },
-    ...mapActions([
-      'deleteItem'
-    ])
+    backToIndex (event) {
+      this.$router.push({name: 'index-page'})
+    }
   },
 
   computed: {
@@ -192,36 +188,21 @@ table {
   height: 20px;
 }
 
-.notice {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 600px;
-}
-
-.notice span {
-  color: #666;
-}
-
 .fixed-btn {
-  width: 560px;
-  position: fixed;
-  bottom: 0;
-  bottom: 20px;
-  text-align: center;
+  margin: 10px 20px;
 }
 
 .fixed-btn>button {
-  display: inline-block;
-  width: 80px;
-  height: 30px;
+  padding: 10px 20px;
   opacity: .2;
-  margin-right: 20px;
 }
 
-.fixed-btn>button:last-child {
-  margin-right: 0;
+.btn-left {
+  float: left;
+}
+
+.btn-right {
+  float: right;
 }
 
 .fixed-btn>button:hover {

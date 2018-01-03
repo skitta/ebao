@@ -1,20 +1,12 @@
 <template>
   <div id="app">
-    <div class="left-side">
-      <side-nav></side-nav>
-    </div>
-    <div class="right-side">
-      <router-view></router-view>
-    </div>
-    <div class="clearfix"></div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import SideNav from './components/SideNav'
   export default {
-    name: 'ebao',
-    components: {SideNav}
+    name: 'ebao'
   }
 </script>
 
@@ -43,35 +35,16 @@
     background-color: rgb(81, 140, 228);
   }
 
-  .left-side {
-    float: left;
-    width: 30%;
-  }
-
-  .right-side {
-    float: left;
-    width: 70%;
-    height: 600px;
-    overflow: auto;
-  }
-
-  .clearfix {
-    clear: both;
-  }
-
   @media print {
     body {
       margin: 0;
       padding: 0;
+      background: none;
     }
 
     @page {
       size: 195mm 270mm;
-      margin: 26mm 17mm;
-    }
-
-    .left-side {
-      display: none;
+      /* margin: 20mm 17mm; */
     }
   }
 </style>

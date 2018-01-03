@@ -1,9 +1,10 @@
 <template>
+<div class="form-main">
   <form @submit.prevent="validateBeforeSubmit">
     <div class="inline-form">
       <input v-model="name" v-validate="'required'" :class="{'is-danger': errors.has('name')}" name="name" type="text" style="width: 30%" placeholder="姓名">
-      <input v-model="bedNum" v-validate="'required'" :class="{'is-danger': errors.has('bedNum')}" name="bedNum" type="text" style="width: 20%" placeholder="床号">
-      <input v-model="patientId" v-validate="'required'" :class="{'is-danger': errors.has('patientId')}" name="patientId" type="text" style="width: 30%" placeholder="住院号">
+      <input v-model="bedNum" v-validate="'required|numeric'" :class="{'is-danger': errors.has('bedNum')}" name="bedNum" type="text" style="width: 20%" placeholder="床号">
+      <input v-model="patientId" v-validate="'required|numeric'" :class="{'is-danger': errors.has('patientId')}" name="patientId" type="text" style="width: 30%" placeholder="住院号">
     </div>
     <div class="vertical-form">
       <label>
@@ -29,6 +30,8 @@
       <p class="help">请正确填写表单</p>
     </div>
   </form>
+  <div class="bigbtn"><button @click="backToIndex">返回</button></div>
+</div>
 </template>
 
 <script>
@@ -49,6 +52,9 @@
     },
 
     methods: {
+      backToIndex (event) {
+        this.$router.push({name: 'index-page'})
+      },
       validateBeforeSubmit () {
         this.$validator.validateAll().then((result) => {
           if (result) {
@@ -60,7 +66,7 @@
             item.filePath = this.filePath
 
             this.$store.dispatch('addItem', item)
-            this.$router.push({name: 'print-page'})
+            this.$router.push({name: 'index-page'})
             return
           }
           alert('请完整填写表单！')
@@ -94,6 +100,18 @@
     border-color: #104cfb;
   }
 
+  button {
+    height: 40px;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .form-main {
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+  }
+
   .inline-form {
     display: flex;
     padding: 40px 30px 0 30px;
@@ -119,7 +137,7 @@
 
   .vertical-form label {
     display: block;
-    margin: 0 0 5px;
+    margin: 0 0 10px;
   }
 
   .vertical-form label>span {
@@ -142,12 +160,7 @@
   .bigbtn {
     display: flex;
     padding: 0 30px;
-  }
-
-  .bigbtn button {
-    height: 40px;
-    width: 100%;
-    font-size: 14px;
+    margin-bottom: 10px;
   }
 
   .is-danger {
@@ -159,11 +172,11 @@
     margin: 20px 30px;
     border: 1px solid rgba(255, 0, 0, 0.5);
     border-radius: 5px;
-    padding: 10px;
     background-color: rgba(255, 240, 90, 0.5);
   }
 
   .help {
     text-align: center;
+    margin: 0;
   }
 </style>
