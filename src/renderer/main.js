@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import axios from 'axios'
-import VeeValidate from 'vee-validate'
+import BootstrapVue from 'bootstrap-vue'
 
 import App from './App'
 import router from './router'
 import store from './store'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
-Vue.use(VeeValidate)
+Vue.use(BootstrapVue)
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 

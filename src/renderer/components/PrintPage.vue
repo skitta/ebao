@@ -1,12 +1,12 @@
 <template>
 <div>
   <div class="fixed-btn">
-    <button class="btn-left" @click="backToIndex">返回</button>
-    <button class="btn-right" @click="printToPdf">打印</button>
+    <b-button variant="outline-primary" size="sm" class="btn-left" @click="backToIndex">返回</b-button>
+    <b-button variant="outline-primary" size="sm" class="btn-right" @click="printToPdf">打印</b-button>
   </div>
   <div class="printable-table" v-if="activeItem.name">
-    <h1>黄石市四医院基本医疗保险</h1>
-    <h2>特殊用药、特殊治疗和特殊检查知情同意书</h2>
+    <h2>黄石市四医院基本医疗保险</h2>
+    <h3>特殊用药、特殊治疗和特殊检查知情同意书</h3>
 
     <div class="table-head">
       <table>
@@ -29,18 +29,18 @@
           <td colspan="5" class="table-reason">
             <div>申请原因：</div>
             <div class="table-reason-content">{{ activeItem.reasons }}</div>
-            <div class="table-reason-sign">医生签名：卢良军</div>
+            <div class="table-reason-sign">医生签名:</div>
           </td>
         </tr>
         <tr>
-          <td>类别</td>
-          <td>名称</td>
-          <td>单价（元）</td>
-          <td>患者及家属签字</td>
-          <td>时间</td>
+          <td style="width:100px">类别</td>
+          <td style="width:220px">名称</td>
+          <td style="width:80px">单价(元)</td>
+          <td>患者及<br>家属签字</td>
+          <td style="width:100px">时间</td>
         </tr>
-        <tr v-if="activeItem.drugB.length > 6" v-for="(drug, index) in activeItem.drugB" :key="index">
-          <td :rowspan="activeItem.drugB.length" v-if="index === 0">（乙类）
+        <tr class="druglist" v-if="activeItem.drugB.length > 6" v-for="(drug, index) in activeItem.drugB" :key="index">
+          <td class="druglist-type" :rowspan="activeItem.drugB.length" v-if="index === 0">(乙类)
             <br>自费10%</td>
           <td>{{drug.name}}</td>
           <td>{{drug.price}}</td>
@@ -48,7 +48,7 @@
           <td>{{drug.time}}</td>
         </tr>
         <tr class="druglist" v-if="activeItem.drugB.length <= 6" v-for="i in 6" :key="i">
-          <td class="druglist-type" rowspan="6" v-if="i === 1">（乙类）
+          <td class="druglist-type" rowspan="6" v-if="i === 1">(乙类)
             <br>自费10%</td>
           <td v-if="i <= activeItem.drugB.length">{{activeItem.drugB[i-1].name}}</td>
           <td v-if="i <= activeItem.drugB.length">{{activeItem.drugB[i-1].price}}</td>
@@ -58,8 +58,8 @@
           <td v-if="i > activeItem.drugB.length"></td>
           <td v-if="i > activeItem.drugB.length"></td>
         </tr>
-        <tr v-if="activeItem.drugC.length > 2" v-for="(drug, index) in activeItem.drugC" :key="index">
-          <td :rowspan="activeItem.drugC.length" v-if="index === 0">（丙类）
+        <tr class="druglist" v-if="activeItem.drugC.length > 2" v-for="(drug, index) in activeItem.drugC" :key="index">
+          <td class="druglist-type" :rowspan="activeItem.drugC.length" v-if="index === 0">(丙类)
             <br>完全自费</td>
           <td>{{drug.name}}</td>
           <td>{{drug.price}}</td>
@@ -67,7 +67,7 @@
           <td>{{drug.time}}</td>
         </tr>
         <tr class="druglist" v-if="activeItem.drugC.length <= 2" v-for="k in 2">
-          <td class="druglist-type" rowspan="2" v-if="k === 1">（丙类）
+          <td class="druglist-type" rowspan="2" v-if="k === 1">(丙类)
             <br>完全自费</td>
           <td v-if="k <= activeItem.drugC.length">{{activeItem.drugC[k-1].name}}</td>
           <td v-if="k <= activeItem.drugC.length">{{activeItem.drugC[k-1].price}}</td>
@@ -113,14 +113,29 @@ export default {
 </script>
 
 <style scoped>
-h1, h2 {
-  margin: 0.1em;
+button {
+  opacity: .2;
+}
+
+button:hover {
+  opacity: 1;
 }
 
 table {
   text-align: center;
-  border-spacing: 0;
-  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.fixed-btn {
+  margin: 10px 20px;
+}
+
+.btn-left {
+  float: left;
+}
+
+.btn-right {
+  float: right;
 }
 
 .printable-table {
@@ -135,7 +150,7 @@ table {
 }
 
 .table-head td:nth-child(odd) {
-  padding-left: 1em;
+  padding-left: 2em;
 }
 
 .table-head td:first-child {
@@ -144,11 +159,11 @@ table {
 
 .underline {
   border-bottom: 1px solid;
-  min-width: 4em;
+  min-width: 5em;
 }
 
 .table-main {
-  width: 36em;
+  width: 38em;
 }
 
 .table-main td {
@@ -173,40 +188,19 @@ table {
 
 .table-reason-sign {
   text-align: right;
-  margin: 0.2em 1em ;
+  margin: 0.2em 5em ;
 }
 
-.druglist>td {
+.druglist {
   font-size: 14px;
 }
 
-.druglist>.druglist-type {
+.druglist-type {
   font-size: 16px;
 }
 
 .drug {
-  height: 20px;
-}
-
-.fixed-btn {
-  margin: 10px 20px;
-}
-
-.fixed-btn>button {
-  padding: 10px 20px;
-  opacity: .2;
-}
-
-.btn-left {
-  float: left;
-}
-
-.btn-right {
-  float: right;
-}
-
-.fixed-btn>button:hover {
-  opacity: 1;
+  height: 36px;
 }
 
 @media print {

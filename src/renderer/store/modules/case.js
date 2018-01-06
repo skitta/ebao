@@ -18,8 +18,24 @@ const mutations = {
     }
   },
 
+  MODIFY_ITEM (state) {
+    for (let i in state.items) {
+      if (state.items[i].patientId === state.activeItem.patientId) {
+        state.items[i] = state.activeItem
+      }
+    }
+  },
+
   SET_ACTIVE_ITEM (state, item) {
     state.activeItem = item
+  },
+
+  DELETE_ACTIVE_ITEM_DRUGB (state, drug) {
+    state.activeItem.drugB.splice(drug, 1)
+  },
+
+  DELETE_ACTIVE_ITEM_DRUGC (state, drug) {
+    state.activeItem.drugC.splice(drug, 1)
   }
 }
 
@@ -73,11 +89,10 @@ const actions = {
             for (let k in base) {
               if (drugList[i].name === base[k][0]) {
                 drugList[i].price = base[k][1]
-                drugList[i].type = base[k][2]
-                if (drugList[i].type === '乙类') {
+                if (base[k][2] === '乙类') {
                   drugB.push(drugList[i])
                 }
-                if (drugList[i].type === '自费') {
+                if (base[k][2] === '自费') {
                   drugC.push(drugList[i])
                 }
               }
@@ -95,8 +110,25 @@ const actions = {
     commit('DELETE_ITEM')
   },
 
+  modifyItem ({commit}) {
+    commit('MODIFY_ITEM')
+  },
+
   updateActiveItem ({commit}, item) {
     commit('SET_ACTIVE_ITEM', item)
+  },
+
+  deleteActiveItemDrugB ({commit}, drugs) {
+    for (let i in drugs) {
+      commit('DELETE_ACTIVE_ITEM_DRUGB', drugs[i])
+    }
+    commit('MODIFY_ITEM')
+  },
+
+  deleteActiveItemDrugC ({commit}, drugs) {
+    for (let i in drugs) {
+      commit('DELETE_ACTIVE_ITEM_DRUGC', drugs[i])
+    }
   }
 }
 

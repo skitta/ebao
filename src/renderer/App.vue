@@ -5,6 +5,9 @@
 </template>
 
 <script>
+  import 'bootstrap/dist/css/bootstrap.css'
+  import 'bootstrap-vue/dist/bootstrap-vue.css'
+
   export default {
     name: 'ebao'
   }
@@ -16,23 +19,7 @@
     margin: 0;
     padding: 0;
     background: #f8f8f8;
-  }
-
-  button {
-    margin: auto;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    background-color: rgb(81, 140, 228);
-    color: #fff;
-  }
-
-  button:hover {
-    background-color: #2a4cbe;
-  }
-
-  button:active {
-    background-color: rgb(81, 140, 228);
+    font-size: 14px;
   }
 
   @media print {
@@ -44,7 +31,7 @@
 
     @page {
       size: 195mm 270mm;
-      /* margin: 20mm 17mm; */
+      margin: 20mm 17mm;
     }
   }
 </style>

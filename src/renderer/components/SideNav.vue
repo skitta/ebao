@@ -1,18 +1,19 @@
 <template>
   <div class="side-nav">
-    <div class="title">List</div>
-    <div class="content">
-      <div class="item-list" v-if="items">
-        <ul class="list-group">
-            <li v-for="item in items" :key="item.patientId" :class="{ active: activeItem === item }" @click="updateActiveItem(item)">
-              <p>{{item.name}}</p>
-            </li>
-        </ul>
+    <b-card no-body header-tag="header">
+      <h6 slot="header" class="mb-0">病人列表</h6>
+      <div class="add-btn" slot="header">
+        <b-button variant="link" size="sm" @click="gotoAddForm">添加</b-button>
       </div>
-      <div class="add-btn">
-        <button @click="gotoAddForm">Add</button>
+      <div class="list-content">
+        <b-list-group flush>
+          <b-list-group-item class="d-flex justify-content-between align-items-center" href="#" v-for="item in items" :key="item.patientId" :active="activeItem === item" @click="updateActiveItem(item)">
+            {{item.name}}
+            <b-badge variant="primary" pill>{{item.bedNum}}床</b-badge>
+          </b-list-group-item>
+        </b-list-group>
       </div>
-    </div>
+    </b-card>
   </div>
 </template>
 
@@ -43,55 +44,15 @@
 </script>
 
 <style scoped>
-  .side-nav {
-    height: 600px;
-    background-color: rgb(37, 37, 38);
-    box-shadow: 0 1px 1px black;
-  }
-
-  .title {
-    background-color: rgb(56, 56, 56);
-    padding: 2px 8px;
-    color: rgb(204, 204, 204);
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    box-shadow: 0 1px 1px black;
-    height: 20px;
-  }
-
-  .content {
-    height: 576px;
+  .list-content {
+    height: 554px;
     overflow: auto;
   }
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  li {
-    height: 28px;
-    cursor: pointer;
-  }
-
-  .active {
-    background-color: rgb(63, 63, 71);
-    transition: all .5s;
-  }
-
-  p {
-    margin: 0;
-    padding: 5px 20px;
-    color: rgb(204, 204, 204);
-  }
-
   .add-btn {
-    display: flex;
-    padding: 20px;
-  }
-
-  .add-btn button {
-    height: 30px;
-    width: 100px;
+    float: right;
+    position:absolute;
+    top: 5.5px;
+    right: 10px;
   }
 </style>

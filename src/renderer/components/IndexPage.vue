@@ -25,14 +25,11 @@ export default {
 .left-side {
     float: left;
     width: 30%;
-    overflow: auto;
   }
 
   .right-side {
     float: left;
     width: 70%;
-    height: 600px;
-    overflow: auto;
   }
 
   .clearfix {
