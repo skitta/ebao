@@ -33,11 +33,11 @@
           </td>
         </tr>
         <tr>
-          <td style="width:100px">类别</td>
-          <td style="width:220px">名称</td>
-          <td style="width:80px">单价(元)</td>
-          <td>患者及<br>家属签字</td>
-          <td style="width:100px">时间</td>
+          <td style="width:16%">类别</td>
+          <td style="width:35%">名称</td>
+          <td style="width:13%">单价(元)</td>
+          <td style="width:18%">患者及<br>家属签字</td>
+          <td style="width:18%">时间</td>
         </tr>
         <tr class="druglist" v-if="activeItem.drugB.length > 6" v-for="(drug, index) in activeItem.drugB" :key="index">
           <td class="druglist-type" :rowspan="activeItem.drugB.length" v-if="index === 0">(乙类)
@@ -123,7 +123,7 @@ button:hover {
 
 table {
   text-align: center;
-  font-size: 16px;
+  /* font-size: 16px; */
 }
 
 .fixed-btn {
@@ -163,7 +163,7 @@ table {
 }
 
 .table-main {
-  width: 38em;
+  width: 40em;
 }
 
 .table-main td {
@@ -191,13 +191,13 @@ table {
   margin: 0.2em 5em ;
 }
 
-.druglist {
+/* .druglist {
   font-size: 14px;
 }
 
 .druglist-type {
   font-size: 16px;
-}
+} */
 
 .drug {
   height: 36px;

@@ -31,11 +31,19 @@ const mutations = {
   },
 
   DELETE_ACTIVE_ITEM_DRUGB (state, drug) {
-    state.activeItem.drugB.splice(drug, 1)
+    for (let index in state.activeItem.drugB) {
+      if (state.activeItem.drugB[index] === drug) {
+        state.activeItem.drugB.splice(index, 1)
+      }
+    }
   },
 
   DELETE_ACTIVE_ITEM_DRUGC (state, drug) {
-    state.activeItem.drugC.splice(drug, 1)
+    for (let index in state.activeItem.drugC) {
+      if (state.activeItem.drugC[index] === drug) {
+        state.activeItem.drugC.splice(index, 1)
+      }
+    }
   }
 }
 
