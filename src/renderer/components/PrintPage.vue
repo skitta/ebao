@@ -33,22 +33,22 @@
           </td>
         </tr>
         <tr>
-          <td style="width:16%">类别</td>
+          <td style="width:17%">类别</td>
           <td style="width:35%">名称</td>
           <td style="width:13%">单价(元)</td>
-          <td style="width:18%">患者及<br>家属签字</td>
+          <td style="width:17%">患者及<br>家属签字</td>
           <td style="width:18%">时间</td>
         </tr>
-        <tr class="druglist" v-if="activeItem.drugB.length > 6" v-for="(drug, index) in activeItem.drugB" :key="index">
-          <td class="druglist-type" :rowspan="activeItem.drugB.length" v-if="index === 0">(乙类)
+        <tr v-if="activeItem.drugB.length > 6" v-for="(drug, index) in activeItem.drugB" :key="index">
+          <td :rowspan="activeItem.drugB.length" v-if="index === 0">(乙类)
             <br>自费10%</td>
           <td>{{drug.name}}</td>
           <td>{{drug.price}}</td>
           <td></td>
           <td>{{drug.time}}</td>
         </tr>
-        <tr class="druglist" v-if="activeItem.drugB.length <= 6" v-for="i in 6" :key="i">
-          <td class="druglist-type" rowspan="6" v-if="i === 1">(乙类)
+        <tr v-if="activeItem.drugB.length <= 6" v-for="i in 6" :key="i">
+          <td rowspan="6" v-if="i === 1">(乙类)
             <br>自费10%</td>
           <td v-if="i <= activeItem.drugB.length">{{activeItem.drugB[i-1].name}}</td>
           <td v-if="i <= activeItem.drugB.length">{{activeItem.drugB[i-1].price}}</td>
@@ -58,16 +58,16 @@
           <td v-if="i > activeItem.drugB.length"></td>
           <td v-if="i > activeItem.drugB.length"></td>
         </tr>
-        <tr class="druglist" v-if="activeItem.drugC.length > 2" v-for="(drug, index) in activeItem.drugC" :key="index">
-          <td class="druglist-type" :rowspan="activeItem.drugC.length" v-if="index === 0">(丙类)
+        <tr v-if="activeItem.drugC.length > 2" v-for="(drug, index) in activeItem.drugC" :key="index">
+          <td :rowspan="activeItem.drugC.length" v-if="index === 0">(丙类)
             <br>完全自费</td>
           <td>{{drug.name}}</td>
           <td>{{drug.price}}</td>
           <td></td>
           <td>{{drug.time}}</td>
         </tr>
-        <tr class="druglist" v-if="activeItem.drugC.length <= 2" v-for="k in 2">
-          <td class="druglist-type" rowspan="2" v-if="k === 1">(丙类)
+        <tr v-if="activeItem.drugC.length <= 2" v-for="k in 2">
+          <td rowspan="2" v-if="k === 1">(丙类)
             <br>完全自费</td>
           <td v-if="k <= activeItem.drugC.length">{{activeItem.drugC[k-1].name}}</td>
           <td v-if="k <= activeItem.drugC.length">{{activeItem.drugC[k-1].price}}</td>
@@ -77,8 +77,8 @@
           <td v-if="k > activeItem.drugC.length"></td>
           <td v-if="k > activeItem.drugC.length"></td>
         </tr>
-        <tr class="druglist">
-          <td class="druglist-type">超限价部分</td>
+        <tr>
+          <td>超限价部分</td>
           <td class="drug"></td>
           <td></td>
           <td></td>
@@ -123,7 +123,6 @@ button:hover {
 
 table {
   text-align: center;
-  /* font-size: 16px; */
 }
 
 .fixed-btn {
@@ -163,7 +162,7 @@ table {
 }
 
 .table-main {
-  width: 40em;
+  width: 38em;
 }
 
 .table-main td {
@@ -190,14 +189,6 @@ table {
   text-align: right;
   margin: 0.2em 5em ;
 }
-
-/* .druglist {
-  font-size: 14px;
-}
-
-.druglist-type {
-  font-size: 16px;
-} */
 
 .drug {
   height: 36px;
