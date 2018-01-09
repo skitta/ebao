@@ -34,9 +34,9 @@
         </tr>
         <tr>
           <td style="width:17%">类别</td>
-          <td style="width:35%">名称</td>
+          <td style="width:36%">名称</td>
           <td style="width:13%">单价(元)</td>
-          <td style="width:17%">患者及家属签字</td>
+          <td style="width:16%">患者及家属签字</td>
           <td style="width:18%">时间</td>
         </tr>
         <tr v-if="activeItem.drugB.length > 6" v-for="(drug, index) in activeItem.drugB" :key="index">
@@ -58,7 +58,7 @@
           <td v-if="i > activeItem.drugB.length"></td>
           <td v-if="i > activeItem.drugB.length"></td>
         </tr>
-        <tr v-if="activeItem.drugC.length > 2" v-for="(drug, index) in activeItem.drugC" :key="index">
+        <tr v-if="activeItem.drugC.length > 3" v-for="(drug, index) in activeItem.drugC" :key="index">
           <td :rowspan="activeItem.drugC.length" v-if="index === 0">(丙类)
             <br>完全自费</td>
           <td>{{drug.name}}</td>
@@ -66,8 +66,8 @@
           <td></td>
           <td>{{drug.time}}</td>
         </tr>
-        <tr v-if="activeItem.drugC.length <= 2" v-for="k in 2">
-          <td rowspan="2" v-if="k === 1">(丙类)
+        <tr v-if="activeItem.drugC.length <= 3" v-for="k in 3">
+          <td rowspan="3" v-if="k === 1">(丙类)
             <br>完全自费</td>
           <td v-if="k <= activeItem.drugC.length">{{activeItem.drugC[k-1].name}}</td>
           <td v-if="k <= activeItem.drugC.length">{{activeItem.drugC[k-1].price}}</td>
@@ -146,7 +146,8 @@ table {
 }
 
 .table-head {
-  margin: 10mm 0 6mm;
+  margin-top: 10mm;
+  margin-bottom: 8mm;
 }
 
 .table-head td:nth-child(odd) {
@@ -163,7 +164,7 @@ table {
 }
 
 .table-main {
-  width: 100%;
+  width: 90%;
 }
 
 .table-main td {
@@ -175,7 +176,7 @@ table {
 }
 
 .table-reason-content {
-  height: 50mm;
+  height: 56mm;
   text-indent: 2em;
   text-align: justify;
 }
