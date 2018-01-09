@@ -36,7 +36,7 @@
           <td style="width:17%">类别</td>
           <td style="width:35%">名称</td>
           <td style="width:13%">单价(元)</td>
-          <td style="width:17%">患者及<br>家属签字</td>
+          <td style="width:17%">患者及家属签字</td>
           <td style="width:18%">时间</td>
         </tr>
         <tr v-if="activeItem.drugB.length > 6" v-for="(drug, index) in activeItem.drugB" :key="index">
@@ -123,6 +123,7 @@ button:hover {
 
 table {
   text-align: center;
+  margin: auto;
 }
 
 .fixed-btn {
@@ -138,18 +139,18 @@ table {
 }
 
 .printable-table {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin: auto;
+  height: 250mm;
+  width: 178mm;
+  text-align: center;
 }
 
 .table-head {
-  margin: 2em 0;
+  margin: 6mm 0;
 }
 
 .table-head td:nth-child(odd) {
-  padding-left: 2em;
+  padding-left: 6mm;
 }
 
 .table-head td:first-child {
@@ -158,19 +159,15 @@ table {
 
 .underline {
   border-bottom: 1px solid;
-  min-width: 5em;
+  min-width: 20mm;
 }
 
 .table-main {
-  width: 38em;
+  width: 80%;
 }
 
 .table-main td {
-  padding: 0.5em;
-}
-
-.table-main tr:first-child>td {
-  padding: 1em;
+  padding: 2mm;
 }
 
 .table-reason {
@@ -178,16 +175,14 @@ table {
 }
 
 .table-reason-content {
-  height: 12em;
-  margin: 0.5em 0;
+  height: 50mm;
   text-indent: 2em;
-  line-height: 2;
   text-align: justify;
 }
 
 .table-reason-sign {
   text-align: right;
-  margin: 0.2em 5em ;
+  margin-right: 20mm;
 }
 
 .drug {
