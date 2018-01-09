@@ -146,11 +146,11 @@ table {
 }
 
 .table-head {
-  margin: 6mm 0;
+  margin: 10mm 0 6mm;
 }
 
 .table-head td:nth-child(odd) {
-  padding-left: 6mm;
+  padding-left: 8mm;
 }
 
 .table-head td:first-child {
@@ -163,7 +163,7 @@ table {
 }
 
 .table-main {
-  width: 80%;
+  width: 100%;
 }
 
 .table-main td {
